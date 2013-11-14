@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -38,5 +39,32 @@ namespace UniversalProviders_Identity_Migrations
         public int FailedPasswordAnswerAttemptCount { get; set; }
         public System.DateTime? FailedPasswordAnswerAttemptWindowStart { get; set; }
         public string Comment { get; set; }
+
+        public ProfileInfo Profile { get; set; }
+
     }
+
+   [ComplexType]
+    public class ProfileInfo
+    {
+        public ProfileInfo()
+        {
+            UserStats = new PersonalStats();
+        }
+
+        public DateTime? DateOfBirth { get; set; }
+
+        public PersonalStats UserStats { get; set; }
+
+        public string City { get; set; }
+    }
+
+    [ComplexType]
+    public class PersonalStats
+    {
+        public int? Weight { get; set; }
+
+        public int? Height { get; set; }
+    }
+    
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Membership.OpenAuth;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace UniversalProviders_Identity_Migrations
 {
@@ -26,6 +28,23 @@ namespace UniversalProviders_Identity_Migrations
             //    clientSecret: "your Microsoft account client secret");
 
             //OpenAuth.AuthenticationClients.AddGoogle();
+
+            var _dbContext = new ApplicationDbContext();
+
+            var dbProfiles = _dbContext.Profiles.Select(x => x);
+
+            foreach (var dbProfile in dbProfiles)
+            {
+                var stringReader = new StringReader(dbProfile.PropertyValueStrings);
+
+                var profile = new XmlSerializer(typeof(ProfileInfo)).Deserialize(stringReader) as ProfileInfo;
+
+                var id = dbProfile.UserId.ToString();
+                var user = _dbContext.Users.Where(x => x.Id == id).FirstOrDefault();
+                user.Profile = profile;
+            }
+
+            _dbContext.SaveChanges();
         }
     }
 }

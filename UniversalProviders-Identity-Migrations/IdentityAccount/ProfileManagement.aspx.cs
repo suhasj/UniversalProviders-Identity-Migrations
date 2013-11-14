@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UniversalProviders_Identity_Migrations.IdentityModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace UniversalProviders_Identity_Migrations.Account
 {
@@ -32,7 +35,9 @@ namespace UniversalProviders_Identity_Migrations.Account
         // The id parameter name should match the DataKeyNames value set on the control
         public void ProfileForm_UpdateItem(int? id)
         {
-            var item = profile.ProfileInfo;
+            var manager = new UserManager();
+            var user = manager.FindByName(HttpContext.Current.User.Identity.Name);
+            var item = user.Profile;
 
             // Load the item here, e.g. item = MyDataLayer.Find(id);
             if (item == null)
@@ -44,7 +49,7 @@ namespace UniversalProviders_Identity_Migrations.Account
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                profile.Save();
+                manager.Update(user);
                 // Save changes here, e.g. MyDataLayer.SaveChanges();
 
             }
@@ -52,9 +57,12 @@ namespace UniversalProviders_Identity_Migrations.Account
 
         // The id parameter should match the DataKeyNames value set on the control
         // or be decorated with a value provider attribute, e.g. [QueryString]int id
-        public UniversalProviders_Identity_Migrations.Models.ProfileInfo ProfileForm_GetItem(int? id)
+        public UniversalProviders_Identity_Migrations.ProfileInfo ProfileForm_GetItem(int? id)
         {
-            return profile.ProfileInfo;
+            var manager = new UserManager();
+            var user = manager.FindByName(HttpContext.Current.User.Identity.Name);
+            //return profile.ProfileInfo;
+            return user.Profile;
         }
     }
 }
