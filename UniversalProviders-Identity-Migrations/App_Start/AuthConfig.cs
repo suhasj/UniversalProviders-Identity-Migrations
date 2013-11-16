@@ -29,22 +29,6 @@ namespace UniversalProviders_Identity_Migrations
 
             //OpenAuth.AuthenticationClients.AddGoogle();
 
-            var _dbContext = new ApplicationDbContext();
-
-            var dbProfiles = _dbContext.Profiles.Select(x => x);
-
-            foreach (var dbProfile in dbProfiles)
-            {
-                var stringReader = new StringReader(dbProfile.PropertyValueStrings);
-
-                var profile = new XmlSerializer(typeof(ProfileInfo)).Deserialize(stringReader) as ProfileInfo;
-
-                var id = dbProfile.UserId.ToString();
-                var user = _dbContext.Users.Where(x => x.Id == id).FirstOrDefault();
-                user.Profile = profile;
-            }
-
-            _dbContext.SaveChanges();
         }
     }
 }
