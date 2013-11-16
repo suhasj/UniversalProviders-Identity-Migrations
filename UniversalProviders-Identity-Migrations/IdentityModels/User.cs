@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UniversalProviders_Identity_Migrations.Models;
 
 namespace UniversalProviders_Identity_Migrations
 {
@@ -38,5 +39,7 @@ namespace UniversalProviders_Identity_Migrations
         public int FailedPasswordAnswerAttemptCount { get; set; }
         public System.DateTime? FailedPasswordAnswerAttemptWindowStart { get; set; }
         public string Comment { get; set; }
+
+        public ProfileInfo Profile { get; set; }
     }
 }

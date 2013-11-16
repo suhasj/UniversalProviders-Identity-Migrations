@@ -99,3 +99,9 @@ CREATE NONCLUSTERED INDEX [IX_UserId]
     ON [dbo].[AspNetUserLogins]([UserId] ASC);
 
 ALTER TABLE Profiles DROP CONSTRAINT [UserProfile];
+
+ALTER TABLE AspNetUsers
+ADD [Profile_DateOfBirth] DateTime NULL,
+    [Profile_City] NVARCHAR (MAX) NULL,
+    [Profile_UserStats_Height] INT NULL,
+    [Profile_UserStats_Weight] INT NULL;

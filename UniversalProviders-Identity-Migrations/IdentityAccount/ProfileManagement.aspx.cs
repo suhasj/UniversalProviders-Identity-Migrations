@@ -5,13 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UniversalProviders_Identity_Migrations.IdentityModels;
+using Microsoft.AspNet.Identity;
 
 namespace UniversalProviders_Identity_Migrations.Account
 {
     public partial class ProfileManagement : System.Web.UI.Page
     {
-        AppProfile profile = AppProfile.GetProfile();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -19,20 +18,24 @@ namespace UniversalProviders_Identity_Migrations.Account
 
         public void ProfileForm_InsertItem()
         {
-            var item = profile.ProfileInfo;
+            //var item = profile.ProfileInfo;
 
-            TryUpdateModel(item);
+            //TryUpdateModel(item);
 
-            if (ModelState.IsValid)
-            {
-                profile.Save();
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    profile.Save();
+            //}
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
         public void ProfileForm_UpdateItem(int? id)
         {
-            var item = profile.ProfileInfo;
+            var manager = new UserManager();
+
+            var user = manager.FindByName(User.Identity.Name);
+
+            var item = user.Profile;
 
             // Load the item here, e.g. item = MyDataLayer.Find(id);
             if (item == null)
@@ -44,9 +47,8 @@ namespace UniversalProviders_Identity_Migrations.Account
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                profile.Save();
+                manager.Update(user);
                 // Save changes here, e.g. MyDataLayer.SaveChanges();
-
             }
         }
 
@@ -54,7 +56,11 @@ namespace UniversalProviders_Identity_Migrations.Account
         // or be decorated with a value provider attribute, e.g. [QueryString]int id
         public UniversalProviders_Identity_Migrations.Models.ProfileInfo ProfileForm_GetItem(int? id)
         {
-            return profile.ProfileInfo;
+            var manager = new UserManager();
+
+            var user = manager.FindByName(User.Identity.Name);
+
+            return user.Profile;
         }
     }
 }

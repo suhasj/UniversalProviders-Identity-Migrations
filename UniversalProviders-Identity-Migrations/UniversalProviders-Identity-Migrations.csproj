@@ -428,7 +428,6 @@
     </Compile>
     <Compile Include="IdentityModels\Application.cs" />
     <Compile Include="IdentityModels\ApplicationDbContext.cs" />
-    <Compile Include="IdentityModels\AppProfile.cs" />
     <Compile Include="IdentityModels\Role.cs" />
     <Compile Include="IdentityModels\User.cs" />
     <Compile Include="IdentityModels\UserDbProfile.cs" />

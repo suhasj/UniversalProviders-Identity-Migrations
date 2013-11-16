@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Profile;
@@ -7,6 +8,7 @@ using System.Web.Profile;
 namespace UniversalProviders_Identity_Migrations.Models
 {
     [Serializable]
+    [ComplexType]
     public class ProfileInfo
     {
         public ProfileInfo()
@@ -14,7 +16,7 @@ namespace UniversalProviders_Identity_Migrations.Models
             UserStats = new PersonalStats();
         }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         public PersonalStats UserStats { get; set; }
 
@@ -22,11 +24,12 @@ namespace UniversalProviders_Identity_Migrations.Models
     }
 
     [Serializable]
+    [ComplexType]
     public class PersonalStats
     {
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
 
-        public int Height { get; set; }
+        public int? Height { get; set; }
     }
 
     public class AppProfile : ProfileBase
