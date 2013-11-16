@@ -7,7 +7,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
     <h3>Profile Management for user: <%= User.Identity.Name %></h3>
-    <asp:FormView runat="server" ItemType="UniversalProviders_Identity_Migrations.ProfileInfo" ID="ProfileForm"
+    <asp:FormView runat="server" ItemType="UniversalProviders_Identity_Migrations.Models.ProfileInfo" ID="ProfileForm"
         InsertMethod="ProfileForm_InsertItem" UpdateMethod="ProfileForm_UpdateItem" SelectMethod="ProfileForm_GetItem"
         DefaultMode="Edit">
         <InsertItemTemplate>
