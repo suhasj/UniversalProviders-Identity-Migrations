@@ -14,13 +14,13 @@ namespace MigrateProfileData
     {
         public static void Main(string[] args)
         {
-            var _dbContext = new ApplicationDbContext();
+            var dbContext = new ApplicationDbContext();
 
-            foreach (var profile in _dbContext.Profiles)
+            foreach (var profile in dbContext.Profiles)
             {
                 var stringId = profile.UserId.ToString();
 
-                var user = _dbContext.Users.Where(x => x.Id == stringId).FirstOrDefault();
+                var user = dbContext.Users.Where(x => x.Id == stringId).FirstOrDefault();
 
                 Console.WriteLine("Adding Profile for user:" + user.UserName);
 
@@ -39,7 +39,7 @@ namespace MigrateProfileData
                     user.Profile = profileData;
                 }
             }
-            _dbContext.SaveChanges();
+            dbContext.SaveChanges();
         }
     }
 }

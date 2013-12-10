@@ -12,14 +12,14 @@ namespace UniversalProviders_Identity_Migrations
     {
         public User()
         {
-            CreateDate = DateTime.Now;
+            CreateDate = DateTime.UtcNow;
             IsApproved = false;
-            LastLoginDate = DateTime.Now;
-            LastActivityDate = DateTime.Now;
-            LastPasswordChangedDate = DateTime.Now;
-            LastLockoutDate = DateTime.Parse("1/1/1754");
-            FailedPasswordAnswerAttemptWindowStart = DateTime.Parse("1/1/1754");
-            FailedPasswordAttemptWindowStart = DateTime.Parse("1/1/1754");
+            LastLoginDate = DateTime.UtcNow;
+            LastActivityDate = DateTime.UtcNow;
+            LastPasswordChangedDate = DateTime.UtcNow;
+            LastLockoutDate = MinSqlDate;
+            FailedPasswordAnswerAttemptWindowStart = MinSqlDate;
+            FailedPasswordAttemptWindowStart = MinSqlDate;
         }
 
         public System.Guid ApplicationId { get; set; }
@@ -41,5 +41,7 @@ namespace UniversalProviders_Identity_Migrations
         public string Comment { get; set; }
 
         public ProfileInfo Profile { get; set; }
+
+        private static readonly DateTime MinSqlDate = DateTime.Parse("1/1/1754");
     }
 }
