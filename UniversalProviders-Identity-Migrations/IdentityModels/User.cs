@@ -20,6 +20,7 @@ namespace UniversalProviders_Identity_Migrations
             LastLockoutDate = MinSqlDate;
             FailedPasswordAnswerAttemptWindowStart = MinSqlDate;
             FailedPasswordAttemptWindowStart = MinSqlDate;
+            Profile = new ProfileInfo();
         }
 
         public System.Guid ApplicationId { get; set; }
